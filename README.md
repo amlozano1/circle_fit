@@ -8,7 +8,7 @@ Finding the circle that best fits a set of points by L. Maisonobe
 
 Examples
 ```
-from circle_fit import center, radius, fit_circle
+from circle_fit import fit_center, fit_radius, fit_circle
 
 points = [ (30,68), (50,-6), (110, -20), (35, 15), (45, 97)]
 center = fit_center(points)
