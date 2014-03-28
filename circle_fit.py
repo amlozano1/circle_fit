@@ -1,13 +1,13 @@
 __author__ = 'Anthony Lozano'
-def center(points, epsilon=.1):
+def fit_center(points, epsilon=.1):
     """
     Given a set of points, this averages the circumcenters for each set of 3 unaligned points, which should result in a
-    decent center estimation. Note this function is quite slow, running in O(n^3) time, however it produces decent
+    decent fit_center estimation. Note this function is quite slow, running in O(n^3) time, however it produces decent
     results with just a few points.
     :param points: A list of points, a list [ (x0, y0), (x1, y1), ... (xn, yx)]
     :param epsilon: A floating point value, if abs(delta) between a set of three points is less than this value, the set will
         be considered aligned and be omitted from the fit.
-    :return: the center of the circle, a tuple (x,y)
+    :return: the fit_center of the circle, a tuple (x,y)
     :raise ValueError: If all the points lie on a line, a circumcenter for the points can not be calculated. In this
     case, you are looking at a line of points, not a circle. For our purposes this means the robot's steering value is ~0.
     """
@@ -33,13 +33,13 @@ def center(points, epsilon=.1):
         raise ValueError("all points are aligned")
     return (total_x / set_count), (total_y / set_count)
 
-def radius(center, points):
+def fit_radius(center, points):
     """
-    This function estimates the radius of a circle given its center and a list of points by averaging the distance to
-    center from each of those points
-    :param center: The center of the circle, a tuple (x, y)
+    This function estimates the fit_radius of a circle given its fit_center and a list of points by averaging the distance to
+    fit_center from each of those points
+    :param center: The fit_center of the circle, a tuple (x, y)
     :param points: A list of points, a list [ (x0, y0), (x1, y1), ... (xn, yx)]
-    :return: The radius of the circle, a positive float or int
+    :return: The fit_radius of the circle, a positive float or int
     """
     total = 0
     for point in points:
@@ -50,14 +50,14 @@ def radius(center, points):
 def fit_circle(points, epsilon=.1):
     """
     Given a set of points, this averages the circumcenters for each set of 3 unaligned points, which should result in a
-    decent center estimation, and then returns the center and radius of the circle. Note this function is quite slow,
+    decent fit_center estimation, and then returns the fit_center and fit_radius of the circle. Note this function is quite slow,
     running in O(n^3) time, however it produces decent results with just a few points.
     :param points: A list of points, a list [ (x0, y0), (x1, y1), ... (xn, yx)]
     :param epsilon: A floating point value, if abs(delta) between a set of three points is less than this value, the set
         will be considered aligned and be omitted from the fit.
-    :return: the center of the circle and the radius, a tuple ((x,y), R)
+    :return: the fit_center of the circle and the fit_radius, a tuple ((x,y), R)
     :raise ValueError: If all the points lie on a line, a circumcenter for the points can not be calculated. In this
     case, you are looking at a line of points, not a circle. For our purposes this means the robot's steering value is ~0.
     """
-    fitted_center = center(points, epsilon)
-    return fitted_center, radius(fitted_center, points)
+    fitted_center = fit_center(points, epsilon)
+    return fitted_center, fit_radius(fitted_center, points)
