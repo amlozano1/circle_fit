@@ -9,7 +9,7 @@ def fit_center(points, epsilon=.1):
         be considered aligned and be omitted from the fit.
     :return: the fit_center of the circle, a tuple (x,y)
     :raise ValueError: If all the points lie on a line, a circumcenter for the points can not be calculated. In this
-    case, you are looking at a line of points, not a circle. For our purposes this means the robot's steering value is ~0.
+    case, you are looking at a line of points, not a circle.
     """
     total_x = 0
     total_y = 0
@@ -30,7 +30,7 @@ def fit_center(points, epsilon=.1):
                     total_y += Cy
                     set_count += 1
     if set_count == 0:
-        raise ValueError("all points are aligned")
+        raise ValueError("All points are aligned")
     return (total_x / set_count), (total_y / set_count)
 
 def fit_radius(center, points):
@@ -57,7 +57,7 @@ def fit_circle(points, epsilon=.1):
         will be considered aligned and be omitted from the fit.
     :return: the fit_center of the circle and the fit_radius, a tuple ((x,y), R)
     :raise ValueError: If all the points lie on a line, a circumcenter for the points can not be calculated. In this
-    case, you are looking at a line of points, not a circle. For our purposes this means the robot's steering value is ~0.
+    case, you are looking at a line of points, not a circle.
     """
     fitted_center = fit_center(points, epsilon)
     return fitted_center, fit_radius(fitted_center, points)
